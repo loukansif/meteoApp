@@ -41,7 +41,9 @@ function myFunction() {
           forecasts.innerHTML = "";
           console.log(data);
           console.log(week[indexDay]);
-          for (let i = 0; i < 5; i++) {
+          console.log(document.getElementById("nbDay").value);
+          nbForecast = document.getElementById("nbDay").value;
+          for (let i = 0; i < nbForecast; i++) {
             day = week[indexDay];
             codeMeteo = data.list[i].weather[0].id;
             console.log(codeMeteo);
@@ -71,7 +73,7 @@ function myFunction() {
             if (indexDay + 1 == 7) {
               indexDay = 0;
             } else {
-              indexDay = indexDay + 1;
+              indexDay++;
             }
           }
         })

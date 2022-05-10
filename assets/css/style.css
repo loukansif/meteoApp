@@ -18,3 +18,7 @@ h1 {
 .forecast {
   width: 140px;
 }
+
+#nbDay {
+    height: 30px;
+}
