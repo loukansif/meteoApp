@@ -1,8 +1,20 @@
 body {
-    text-align: center;
-    background-color: #19C8E3;
+  text-align: center;
+  background-color: #19c8e3;
 }
 
 h1 {
-    margin-bottom: 1em;
+  margin: 1em auto;
+}
+
+#forecasts {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.forecast {
+  width: 140px;
 }
