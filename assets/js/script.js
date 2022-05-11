@@ -1,7 +1,12 @@
 function myFunction() {
   const CAGEDATA_API_KEY = "c51703746f42417aad34698a35135e7b";
   const WEATHERMAP_API_KEY = "26f95dc23fad5b112f7c3fbf3a8a102c";
-  let hourUs = new Date().toLocaleTimeString('en-US', { hour: 'numeric', hour12: true, minute: 'numeric', second: 'numeric' });
+  let hourUs = new Date().toLocaleTimeString("en-US", {
+    hour: "numeric",
+    hour12: true,
+    minute: "numeric",
+    second: "numeric",
+  });
   let ajd = new Date();
   let week = [
     "Sunday",
@@ -33,38 +38,13 @@ function myFunction() {
       console.log(`La latitude de ${city_name} est ${latitude}`);
       console.log(`La longitude de ${city_name} est ${longitude}`);
       const DAY_URL = `https://api.sunrise-sunset.org/json?lat=${latitude}&lng=${longitude}`;
-      const WEATHERMAP_URL = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${WEATHERMAP_API_KEY}`;
+      // const WEATHERMAP_URL = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${WEATHERMAP_API_KEY}`;
+      const WEATHERMAP_URL = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&appid=${WEATHERMAP_API_KEY}`;
       fetch(WEATHERMAP_URL)
         .then((response) => {
           return response.json();
         })
         .then((data) => {
-          fetch(DAY_URL)
-            .then((response) => {
-              return response.json();
-            })
-            .then((data) => {
-                console.log(data)
-              console.log(data.results.sunset);
-              console.log(hourUs)
-              console.log(hourUs - data.results.sunset)
-
-              if(hourUs >= data.results.sunset){
-                  console.log("ok")
-                  document.body.style.background = '';
-                  document.body.style.background = 'linear-gradient(#01091F, #3776FB)';
-                  document.body.style.color = 'white';
-                }else {
-                    console.log("noOk")
-                    document.body.style.background = '';
-                    document.body.style.backgroundColor = '#19c8e3';
-                    document.body.style.color = 'black';
-              }
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-
           forecasts.innerHTML = "";
           console.log(data);
           console.log(week[indexDay]);
@@ -72,11 +52,12 @@ function myFunction() {
           nbForecast = document.getElementById("nbDay").value;
           for (let i = 0; i < nbForecast; i++) {
             day = week[indexDay];
-            codeMeteo = data.list[i].weather[0].id;
+            // codeMeteo = data.list[i].weather[0].id;
+            codeMeteo = data.hourly[i].weather[0].id;
             console.log(codeMeteo);
 
             if (codeMeteo == 800) {
-              imgSrc = "./assets/images/clouds.svg";
+              imgSrc = "./assets/images/sun.svg";
             } else if (codeMeteo == 801 || codeMeteo == 802) {
               imgSrc = "./assets/images/cloudy.svg";
             } else if (codeMeteo == 803 || codeMeteo == 804) {
@@ -97,10 +78,24 @@ function myFunction() {
             addDiv.appendChild(addH3);
             addDiv.appendChild(addImg);
             document.getElementById("forecasts").appendChild(addDiv);
+
             if (indexDay + 1 == 7) {
               indexDay = 0;
             } else {
               indexDay++;
+            }
+
+            if (data.hourly[0].uvi == 0) {
+              console.log("sunset ok");
+              document.body.style.background = "";
+              document.body.style.background =
+                "linear-gradient(#01091F, #3776FB)";
+              document.body.style.color = "white";
+            } else {
+              console.log("sunset noOk");
+              document.body.style.background = "";
+              document.body.style.backgroundColor = "#19c8e3";
+              document.body.style.color = "black";
             }
           }
         })
