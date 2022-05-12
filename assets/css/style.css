@@ -1,6 +1,5 @@
 body {
-    min-height: 100vh; 
-    margin: 0;
+  margin: 0;
   text-align: center;
   background-color: #19c8e3;
   /* background: linear-gradient(#01091F, #3776FB); */
@@ -22,6 +21,10 @@ h1 {
   width: 140px;
 }
 
+.forecast img {
+  width: 100%;
+}
+
 #nbDay {
-    height: 30px;
+  height: 30px;
 }
