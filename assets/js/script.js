@@ -1,7 +1,7 @@
 var input = document.getElementById("city");
 input.addEventListener("keydown", function (e) {
   if (e.key === "Enter") {
-    myFunction();
+    forecastFunction();
   }
 });
 
@@ -98,7 +98,7 @@ function getWeatherFromApi(latitude, longitude, city_name) {
     .catch((err) => console.log(err));
 }
 
-function myFunction() {
+function forecastFunction() {
   const city_name = document.getElementById("city").value.toLowerCase();
   const CAGEDATA_URL = `https://api.opencagedata.com/geocode/v1/json?q=${city_name}&key=${CAGEDATA_API_KEY}&language=fr&pretty=1`;
 
